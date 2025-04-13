@@ -1,6 +1,6 @@
 # Online Retail Customer Retention Analysis
 
-This is a capstone project analyzing customer retention for an online retail business, completed as part of my data analytics learning journey.
+This is a project analyzing customer retention for an online retail business, completed as part of my data analytics learning journey.
 
 ## Project Overview
 - **Business Task**: Analyze customer purchase data to understand retention patterns and propose strategies to improve customer loyalty.
