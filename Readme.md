@@ -20,4 +20,4 @@ This is a project analyzing customer retention for an online retail business, co
 
 ## How to View
 - Open `OnlineRetailAnalysis.html` in a web browser to see the full report.
-- Open `OnlineRetailAnalysis.Rmd` in RStudio to explore the code (if included).
+- Open `OnlineRetailAnalysis.Rmd` in RStudio to explore the code.
