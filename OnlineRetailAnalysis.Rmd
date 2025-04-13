@@ -1,0 +1,74 @@
+---
+title: "Online Retail Customer Retention Analysis"
+author: "Alex"
+date: "2025-04-09"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+# Introduction
+This report analyses customer purchasing patterns to improve retention for an online retail company
+
+# Data Loading and Cleaning
+```{r}
+# Load the tidyverse package
+library(tidyverse)
+library(readr)
+
+# Load the dataset
+retail_data <- read_csv("OnlineRetail.csv")
+```
+```{r}
+# Remove rows with missing CustomerID and negative quantities
+clean_data <- retail_data %>%
+  filter(!is.na(CustomerID), Quantity > 0)
+
+# Convert InvoiceDate to a date format
+clean_data <- clean_data %>%
+  mutate(InvoiceDate = as.Date(InvoiceDate, format = "%m/%d/%Y %H:%M"))
+
+# Look at the first few rows
+head(clean_data)
+```
+
+# Analysis
+Let’s explore customer purchasing patterns.
+```{r}
+# Count transactions per customer
+customer_frequency <- clean_data %>%
+  group_by(CustomerID) %>%
+  summarise(Transactions = n()) %>%
+  arrange(desc(Transactions))
+
+# Show top 5 customers
+head(customer_frequency, 5)
+```
+
+```{r}
+# Plot a histogram of transaction counts
+ggplot(customer_frequency, aes(x = Transactions)) +
+  geom_histogram(binwidth = 1, fill = "blue", color = "black") +
+  labs(title = "Distribution of Customer Purchase Frequency",
+       x = "Number of Transactions", y = "Count of Customers")
+```
+```{r}
+# Calculate total spend per transaction and average per customer
+clean_data <- clean_data %>%
+  mutate(TotalSpend = Quantity * UnitPrice)
+
+avg_spend <- clean_data %>%
+  group_by(CustomerID) %>%
+  summarise(AvgSpend = mean(TotalSpend)) %>%
+  arrange(desc(AvgSpend))
+
+head(avg_spend, 5)
+```
+
+# Findings
+Most customers buy only once, but a small group of repeat buyers drives sales. The top spenders average higher transaction values.
+
+# Recommendations
+- Offer discounts to one-time buyers to encourage repeat purchases.
+- Reward top spenders with loyalty perks.
